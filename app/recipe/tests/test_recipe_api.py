@@ -18,13 +18,13 @@ def sample_recipe(user, **params):
     defaults = {
         'title': 'Sample recipe',
         'time_minutes': 10,
-        'price': 5.00
+        'price': 5.00,
     }
     defaults.update(params)
 
     return Recipe.objects.create(user=user, **defaults)
 
-class RepublicRecipeApiTests(TestCase):
+class PublicRecipeApiTests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
