@@ -4,9 +4,9 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from ..models import Tag
+from app.core.models import Tag
 
-from ...recipe.serializers import TagSerializer
+from recipe.serializers import TagSerializer
 
 TAGS_URL = reverse('recipe:tag-list')
 
@@ -47,7 +47,6 @@ class PrivateTagsApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
 
-
     def test_tags_limited_ti_user(self):
         """Test that tags returned are for the authenticated user"""
         user2 = get_user_model().objects.create_user(
@@ -62,3 +61,10 @@ class PrivateTagsApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
         self.assertEqual(res.data[0]['name'], tag.name)
+
+    def test_create_tag_invalid(self):
+        """Test creating a new tag with invalid payload"""
+        payload = {'name': ''}
+        res = self.client.post(TAGS_URL, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
