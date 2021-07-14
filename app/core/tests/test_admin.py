@@ -15,11 +15,11 @@ class AdminSiteTests(TestCase):
         self.user = get_user_model().objects.create_user(
             email='test@gmail.com',
             password='password123',
-            name='Test user full name'
+            name='Test User Full Name',
         )
 
     def test_users_listed(self):
-        """Test that users are listed on user page"""
+        """Test that users are listed on the user page"""
         url = reverse('admin:core_user_changelist')
         res = self.client.get(url)
 
