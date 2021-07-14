@@ -9,7 +9,6 @@ from core.models import Recipe
 
 from recipe.serializers import RecipeSerializer
 
-
 RECIPES_URL = reverse('recipe:recipe-list')
 
 
@@ -24,7 +23,22 @@ def sample_recipe(user, **params):
 
     return Recipe.objects.create(user=user, **defaults)
 
+
 class PublicRecipeApiTests(TestCase):
+    """Test unauthenticated recipe API acces"""
+
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_required_aut(self):
+        """Test the authentication is required"""
+        res = self.client.get(RECIPES_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class PrivateRecipeApiTests(TestCase):
+    """Test authenticated recipe API access"""
 
     def setUp(self):
         self.client = APIClient()
