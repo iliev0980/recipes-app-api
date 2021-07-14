@@ -36,7 +36,7 @@ class ModelTests(TestCase):
             get_user_model().objects.create_user(None, 'test123')
 
     def test_create_new_superuser(self):
-        """Test creating a new super user"""
+        """Test creating a new superuser"""
         user = get_user_model().objects.create_superuser(
             'test@gmail.com',
             'test123'
@@ -48,7 +48,7 @@ class ModelTests(TestCase):
         """Test the tag string representation"""
         tag = models.Tag.objects.create(
             user=sample_user(),
-            name='Vegan',
+            name='Vegan'
         )
 
         self.assertEqual(str(tag), tag.name)
