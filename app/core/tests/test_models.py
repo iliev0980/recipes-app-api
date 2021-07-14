@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
-from core.models import Ingredient, Tag
+from core import models
 
 
 def sample_user(email='test@gmail.com', password='testpass'):
@@ -46,7 +46,7 @@ class ModelTests(TestCase):
 
     def test_tag_str(self):
         """Test the tag string representation"""
-        tag = Tag.objects.create(
+        tag = models.Tag.objects.create(
             user=sample_user(),
             name='Vegan',
         )
@@ -55,7 +55,7 @@ class ModelTests(TestCase):
 
     def test_ingredient_str(self):
         """Test the ingredient string representation"""
-        ingredient = Ingredient.objects.create(
+        ingredient = models.Ingredient.objects.create(
             user=sample_user(),
             name='Cucumber'
         )
